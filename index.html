@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <title>Homework 6</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="buttondumper" class="container">
+
+        <button class="btn" data-singer="Garth Brooks">Garth Brooks</button>
+        <button class="btn" data-singer="Lana Del Ray">Lana Del Ray</button>
+        <button class="btn" data-singer="Selena Gomez">Selena Gomez</button>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-7"></div>
+            <label for="singer-input">
+                <strong>Enter a Singer:</strong>
+            </label>
+            <input type="text" id="singer-input">
+            <br>
+            <input id="find-singer" type="submit" value="Search">
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="dump" class="row"> </div>
+            </div>
+
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+
+            topics = [""];
+
+
+            $(document).on("click", "button", function () {
+
+                event.preventDefault();
+
+                var singer = $(this).data("singer");
+
+                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + singer + "&api_key=dc6zaTOxFJmzC&limit=9";
+
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function (response) {
+                    for (var i = 0; i < response.data.length; i++) {
+                        $("#dump").prepend("<div class='col-4'>  Rating:" + response.data[i].rating + "<img src='" + response.data[i].images.fixed_height.url + "'> </div>");
+                        // $("#dump").prepend("Rating: " + response.data[i].rating);
+
+                    }
+                })
+            });
+
+            $("#find-singer").on("click", function () {
+                var singaa = $("#singer-input").val();
+                $("#buttondumper").append('<button class="btn" data-singer="' + singaa + '">' + singaa + '</button>');
+                console.log(singaa);
+
+
+
+            });
+
+
+
+        </script>
+</body>
+
+</html>

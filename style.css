@@ -1,0 +1,20 @@
+body {
+    padding: 20px;
+    background-color: #255C69;
+    color: white;
+}
+
+.btn {
+    background-color: white;
+    color: #255C69;
+    margin: 5px;
+}
+
+.row {
+    padding-top: 15px;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
